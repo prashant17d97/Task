@@ -1,12 +1,7 @@
 package com.prashant.task.singlton
 
-import android.content.Context
-import android.net.Uri
 import android.os.Parcelable
-import androidx.documentfile.provider.DocumentFile
-import com.prashant.task.fragments.mediamodel.MediaModel
 import kotlinx.parcelize.Parcelize
-import java.io.File
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
@@ -24,20 +19,6 @@ fun Long.milliSecondsToDate(): String {
     return dateTime.format(formatter)
 }
 
-fun details(context: Context, fileUri: Uri): MediaModel {
-    val documentFile = DocumentFile.fromSingleUri(context, fileUri)
-    val file = documentFile?.uri?.path?.let { File(it) }
-    val lastModified = file?.lastModified()
-
-    return MediaModel(
-        uri = fileUri,
-        fileName = documentFile?.name ?: "",
-        fileSize = (documentFile?.length() ?: 0L).bytesToMb(),
-        fileType = documentFile?.type ?: "",
-        createdDate = lastModified?.milliSecondsToDate() ?: ""
-    )
-
-}
 
 @Parcelize
 enum class MediaQuery(val value: String) :Parcelable {

@@ -63,6 +63,7 @@ class Image :Fragment() {
     }
 
     private fun argsHandled() {
+        Log.e(TAG, "argsHandled: ${imageVM.recycleAdapter.getAllItem()}", )
         args.uris?.list?.let {
             imageVM.recycleAdapter.addItems(it)
             imageVM.isAdapterEmpty.set(imageVM.recycleAdapter.getAllItem().isEmpty())

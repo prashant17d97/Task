@@ -10,7 +10,6 @@ import com.prashant.task.R
 import com.prashant.task.adapter.RecyclerAdapter
 import com.prashant.task.fragments.mediamodel.MediaModel
 import com.prashant.task.singlton.bytesToMb
-import com.prashant.task.singlton.details
 import com.prashant.task.singlton.milliSecondsToDate
 import java.io.File
 
@@ -33,5 +32,20 @@ class VideoVM :ViewModel() {
         }
         recycleAdapter.addItems(list)
         isAdapterEmpty.set(recycleAdapter.getAllItem().isEmpty())
+    }
+
+    private fun details(context: Context, fileUri: Uri): MediaModel {
+        val documentFile = DocumentFile.fromSingleUri(context, fileUri)
+        val file = documentFile?.uri?.path?.let { File(it) }
+        val lastModified = file?.lastModified()
+
+        return MediaModel(
+            uri = fileUri,
+            fileName = documentFile?.name ?: "",
+            fileSize = (documentFile?.length() ?: 0L).bytesToMb(),
+            fileType = documentFile?.type ?: "",
+            createdDate = lastModified?.milliSecondsToDate() ?: ""
+        )
+
     }
 }

@@ -19,7 +19,6 @@ import androidx.navigation.fragment.navArgs
 import com.prashant.task.databinding.CameraFragmentBinding
 import com.prashant.task.fragments.mediamodel.MediaModel
 import com.prashant.task.singlton.bytesToMb
-import com.prashant.task.singlton.details
 import com.prashant.task.singlton.milliSecondsToDate
 import java.io.File
 
@@ -43,10 +42,9 @@ class CameraFragment :Fragment() {
     private val takePicture =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
             if (success) {
-                cameraVM.isCaptured = true
                 latestTmpUri?.let { uri ->
                     cameraVM.currentImage.set(uri)
-                    cameraVM.previewAdapter.addItem(details(requireContext(),uri))
+                    cameraVM.previewAdapter.addItem(details(requireContext(), uri))
                 }
             }
         }
@@ -74,7 +72,6 @@ class CameraFragment :Fragment() {
         _binding = null
     }
 
-
     override fun onResume() {
         super.onResume()
         if (!cameraVM.isCaptured) {
@@ -92,6 +89,7 @@ class CameraFragment :Fragment() {
     }
 
     private fun takeImage() {
+        cameraVM.isCaptured = true
         lifecycleScope.launchWhenStarted {
             getTmpFileUri().let { uri ->
                 latestTmpUri = uri
@@ -100,6 +98,20 @@ class CameraFragment :Fragment() {
         }
     }
 
+    private fun details(context: Context, fileUri: Uri): MediaModel {
+        val documentFile = DocumentFile.fromSingleUri(context, fileUri)
+        val file = documentFile?.uri?.path?.let { File(it) }
+        val lastModified = file?.lastModified()
+
+        return MediaModel(
+            uri = fileUri,
+            fileName = documentFile?.name ?: "",
+            fileSize = (documentFile?.length() ?: 0L).bytesToMb(),
+            fileType = documentFile?.type ?: "",
+            createdDate = lastModified?.milliSecondsToDate() ?: ""
+        )
+
+    }
 
     private fun getTmpFileUri(): Uri {
         val tmpFile = File.createTempFile("task", ".png", requireContext().cacheDir)
