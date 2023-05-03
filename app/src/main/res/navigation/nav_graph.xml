@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/HomeFragment">
+
+    <fragment
+        android:id="@+id/HomeFragment"
+        android:name="com.prashant.task.fragments.HomeFragment"
+        android:label="@string/home_fragment_label"
+        tools:layout="@layout/home_fragment">
+
+        <action
+            android:id="@+id/action_HomeFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_image"
+            app:destination="@id/image" />
+        <action
+            android:id="@+id/action_FirstFragment_to_videoFragment"
+            app:destination="@id/videoFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_userInput"
+            app:destination="@id/userInput" />
+    </fragment>
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="com.prashant.task.fragments.SecondFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_second">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/HomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/image"
+        android:name="com.prashant.task.fragments.Image"
+        android:label="Images"
+        tools:layout="@layout/image_fragment" />
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.prashant.task.fragments.VideoFragment"
+        android:label="Video"
+        tools:layout="@layout/video_fragment" />
+    <fragment
+        android:id="@+id/userInput"
+        android:name="com.prashant.task.fragments.UserInput"
+        android:label="Input"
+        tools:layout="@layout/user_input_fragment" />
+</navigation>

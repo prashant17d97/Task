@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Task</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="home_fragment_label">Home</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet
+    </string>
+    <string name="fab">Floating Action Button</string>
+    <string name="camera">Images</string>
+    <string name="description">Retrieve multiple images from Gallery &amp; Camera and display them in a list.</string>
+    <string name="video">Video</string>
+    <string name="videoDescription">Retrieve multiple videos from Gallery &amp; Camera and display them in a list.</string>
+    <string name="userInput">User Input</string>
+    <string name="inputDescription">Take all the basic user details and save them.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="gallery">Gallery</string>
+    <string name="todo">TODO</string>
+</resources>
