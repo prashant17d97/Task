@@ -1,4 +1,4 @@
-package com.prashant.task.fragments
+package com.prashant.task.fragments.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import com.prashant.task.databinding.HomeFragmentBinding
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class HomeFragment : Fragment() {
+class HomeFragment :Fragment() {
 
     private var _binding: HomeFragmentBinding? = null
 

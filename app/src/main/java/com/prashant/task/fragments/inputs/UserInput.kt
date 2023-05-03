@@ -1,4 +1,4 @@
-package com.prashant.task.fragments
+package com.prashant.task.fragments.inputs
 
 import android.os.Bundle
 import android.view.LayoutInflater
