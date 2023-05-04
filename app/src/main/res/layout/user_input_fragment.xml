@@ -36,8 +36,7 @@
             android:layout_margin="10dp"
             android:background="@color/background"
             app:cardCornerRadius="10dp"
-            app:layout_constraintTop_toBottomOf="@id/tvHead"
-            tools:layout_editor_absoluteX="10dp">
+            app:layout_constraintTop_toBottomOf="@id/tvHead">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

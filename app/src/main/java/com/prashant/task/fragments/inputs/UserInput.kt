@@ -39,7 +39,7 @@ class UserInput :Fragment() {
             etTestFiled.setOnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     // Handle the ActionDone event here
-                    if (userInputVM.validateInputs()) {
+                    if (userInputVM.validateInputs) {
                         requireActivity().clearFocus()
                     }
                     return@setOnEditorActionListener true

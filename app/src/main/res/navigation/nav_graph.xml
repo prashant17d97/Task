@@ -35,6 +35,21 @@
         android:id="@+id/userInput"
         android:name="com.prashant.task.fragments.inputs.UserInput"
         android:label="Input"
-        tools:layout="@layout/user_input_fragment" />
+        tools:layout="@layout/user_input_fragment">
+        <action
+            android:id="@+id/action_userInput_to_table"
+            app:destination="@id/table" />
+    </fragment>
+    <fragment
+        android:id="@+id/table"
+        android:name="com.prashant.task.fragments.table.Table"
+        android:label="Table"
+        tools:layout="@layout/table_fragment" >
+        <argument
+            android:name="inputData"
+            app:argType="com.prashant.task.fragments.inputs.InputData"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
 </navigation>

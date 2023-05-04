@@ -1,15 +1,18 @@
 package com.prashant.task.fragments.inputs
 
+import android.os.Parcelable
 import android.util.Log
 import android.view.View
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.findNavController
 import com.google.gson.Gson
 import com.prashant.task.MainActivity
 import com.prashant.task.R
 import com.prashant.task.singlton.SingletonObj.clearFocus
 import com.prashant.task.singlton.SingletonObj.showToast
+import kotlinx.parcelize.Parcelize
 import org.json.JSONObject
 
 class UserInputVM :ViewModel() {
@@ -24,6 +27,7 @@ class UserInputVM :ViewModel() {
     val location = ObservableField("")
     val description = ObservableField("")
     val testFiled = ObservableField("")
+    private var inputData: InputData? = null
 
     companion object {
         private const val TAG = "UserInputVM"
@@ -31,17 +35,19 @@ class UserInputVM :ViewModel() {
 
     fun onClick(view: View) {
         when (view.id) {
-            R.id.btnNext -> {}
+            R.id.btnNext -> view.findNavController()
+                .navigate(UserInputDirections.actionUserInputToTable(inputData))
+
             R.id.btnSave -> {
-                if (validateInputs()) {
+                if (validateInputs) {
                     saveData()
                 }
             }
         }
     }
 
-    fun validateInputs(): Boolean {
-        return when {
+    val validateInputs: Boolean
+        get() = when {
             fullName.get()?.trim()?.isEmpty() == true -> {
                 errorFinder.value = FieldTypoError.FullName
                 false
@@ -79,7 +85,7 @@ class UserInputVM :ViewModel() {
 
             else -> true
         }
-    }
+
 
     private fun saveData() {
         val activity = MainActivity.activity.get() as MainActivity
@@ -103,17 +109,16 @@ class UserInputVM :ViewModel() {
         /**
          * Second approach to create Json
          * */
-        val jsonString = Gson().toJson(
-            InputData(
-                fullName = fullName.get()?.trim() ?: "",
-                address = address.get()?.trim() ?: "",
-                date = date.get()?.trim() ?: "",
-                mobile = mobile.get()?.trim() ?: "",
-                location = location.get()?.trim() ?: "",
-                description = description.get()?.trim() ?: "",
-                testFile = testFiled.get()?.trim() ?: ""
-            )
+        inputData = InputData(
+            fullName = fullName.get()?.trim() ?: "",
+            address = address.get()?.trim() ?: "",
+            date = date.get()?.trim() ?: "",
+            mobile = mobile.get()?.trim() ?: "",
+            location = location.get()?.trim() ?: "",
+            description = description.get()?.trim() ?: "",
+            testFile = testFiled.get()?.trim() ?: ""
         )
+        val jsonString = Gson().toJson(inputData)
 
         Log.e(TAG, "saveData: \nApproach 1:---->$jsonObject\nApproach 2:---->$jsonString")
 
@@ -133,11 +138,12 @@ enum class FieldTypoError(val message: String) {
     Address("Address is not allowed to empty!"),
     Date("Enter a valid date and must match DD/MM/YYYY!"),
     Mobile("Enter a valid Mobile number!"),
-    Location("Name field is not allowed to empty!"),
+    Location("Location field is not allowed to empty!"),
     Description("Description field is not allowed to empty!"),
     TestFiled("TestFiled field is not allowed to empty!"),
 }
 
+@Parcelize
 data class InputData(
     val fullName: String,
     val address: String,
@@ -146,4 +152,4 @@ data class InputData(
     val location: String,
     val description: String,
     val testFile: String,
-)
+) :Parcelable
