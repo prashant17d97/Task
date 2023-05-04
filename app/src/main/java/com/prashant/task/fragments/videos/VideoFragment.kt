@@ -93,21 +93,18 @@ class VideoFragment : Fragment() {
                         ivPreview.isVisible = false
                         videoPreview.isVisible = true
                         videoVM.currentVideo.observe(viewLifecycleOwner) {
-                            if (player != null&&it != null) {
-//                                player?.release()
-                                val mediaItem = MediaItem.fromUri(it)
+                            it?.let {uri->
+                                if (player == null) {
+                                    player = ExoPlayer.Builder(videoPreview.context).build()
+                                    videoPreview.player = player
+                                }
+                                if (player?.isPlaying == true) {
+                                    player?.pause()
+                                }
+                                val mediaItem = MediaItem.fromUri(uri)
                                 player?.setMediaItem(mediaItem)
                                 player?.prepare()
                                 player?.play()
-                            } else {
-                                if (it != null) {
-                                    player = ExoPlayer.Builder(videoPreview.context).build()
-                                    videoPreview.player = player
-                                    val mediaItem = MediaItem.fromUri(it)
-                                    player?.setMediaItem(mediaItem)
-                                    player?.prepare()
-                                    player?.play()
-                                }
                             }
                         }
 
