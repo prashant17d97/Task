@@ -11,8 +11,10 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clMediaCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{(v)-> model.onItemClick.onClick(v,model.viewHolder, model.position)}"
         android:layout_margin="5dp">
 
         <ImageView

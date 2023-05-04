@@ -10,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.prashant.task.databinding.ActivityMainBinding
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import java.lang.ref.WeakReference
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,10 +18,14 @@ class MainActivity : AppCompatActivity() {
     private var binding = _binding
     private lateinit var navController: NavController
 
+    companion object {
+        lateinit var activity: WeakReference<MainActivity>
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
+        activity = WeakReference(this)
         setContentView(binding?.root)
         initNavController()
         clicks()
@@ -35,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        activity = WeakReference(null)
     }
 
     private fun initNavController() {
@@ -54,7 +60,5 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
-
-
     }
 }

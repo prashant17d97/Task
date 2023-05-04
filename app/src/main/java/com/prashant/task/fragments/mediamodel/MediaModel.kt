@@ -12,4 +12,7 @@ data class MediaModel(
     val fileName: String = "",
     val fileSize: String = "",
     val createdDate: String = ""
-) :AbstractModel(), Parcelable
+) : AbstractModel(), Parcelable {
+    val isVideo: Boolean
+        get() = fileType.contains("video")
+}

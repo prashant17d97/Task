@@ -31,4 +31,8 @@
     </style>
 
     <style name="Theme.Task" parent="Base.Theme.Task" />
+    <style name="TransparentDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
 </resources>

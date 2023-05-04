@@ -34,12 +34,15 @@ class RecyclerAdapter<T :AbstractModel>(
     fun getAllItem() = items
 
     /**
-
      *Clears the existing items in the list and adds the new items to it.
      *@param items The new items to be added to the list
      */
     fun addItems(items: List<T>) {
         this.items.clear()
+        this.items.addAll(items)
+        notifyDataSetChanged()
+    }
+    fun addMoreItems(items: List<T>) {
         this.items.addAll(items)
         notifyDataSetChanged()
     }

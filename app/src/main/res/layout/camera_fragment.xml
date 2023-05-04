@@ -3,34 +3,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="viewModel"
-            type="com.prashant.task.fragments.camera.CameraVM" />
-    </data>
+    <data></data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clCamera"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.camera.CameraFragment">
+        android:layout_margin="10dp"
+        android:background="@drawable/containerbg">
 
         <ImageView
-            setImage="@{viewModel.currentImage}"
+            android:id="@+id/ivPreview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:contentDescription="@string/todo"
             android:padding="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_image"
             app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/ic_image" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.media3.ui.PlayerView
+            android:id="@+id/videoPreview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            android:contentDescription="@string/todo"
+            android:minHeight="500dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPreview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivCancel"
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/ivDone"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:contentDescription="@string/todo"
-            android:onClick="@{viewModel::onClick}"
             android:padding="5dp"
             android:src="@drawable/ic_check_circle"
             app:layout_constraintBottom_toTopOf="@+id/recyclerView"
@@ -51,7 +65,6 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            setRecyclerAdapter="@{viewModel.previewAdapter}"
             android:layout_marginVertical="15dp"
             android:orientation="horizontal"
             android:paddingHorizontal="5dp"
@@ -59,5 +72,16 @@
             app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/preview_view" />
 
+        <ImageView
+            android:id="@+id/ivCancel"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/circle"
+            android:contentDescription="@string/todo"
+            android:padding="5dp"
+            android:src="@drawable/ic_close"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

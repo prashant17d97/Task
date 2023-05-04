@@ -2,6 +2,7 @@ package com.prashant.task.adapter
 
 import android.net.Uri
 import android.widget.ImageView
+import android.widget.VideoView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -31,5 +32,4 @@ object BindingAdapters {
             .error(R.drawable.ic_image)
             .into(imageView)
     }
-
 }

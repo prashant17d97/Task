@@ -12,9 +12,6 @@
         tools:layout="@layout/home_fragment">
 
         <action
-            android:id="@+id/action_HomeFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-        <action
             android:id="@+id/action_FirstFragment_to_image"
             app:destination="@id/image" />
         <action
@@ -38,56 +35,16 @@
         android:id="@+id/image"
         android:name="com.prashant.task.fragments.image.Image"
         android:label="Images"
-        tools:layout="@layout/image_fragment">
-        <action
-            android:id="@+id/action_image_to_cameraFragment"
-            app:destination="@id/cameraFragment"
-            app:launchSingleTop="false" />
-        <argument
-            android:name="uris"
-            app:argType="com.prashant.task.fragments.camera.URI"
-            app:nullable="true"
-            android:defaultValue="@null" />
-    </fragment>
+        tools:layout="@layout/image_fragment" />
     <fragment
         android:id="@+id/videoFragment"
         android:name="com.prashant.task.fragments.videos.VideoFragment"
         android:label="Video"
-        tools:layout="@layout/video_fragment">
-        <action
-            android:id="@+id/action_videoFragment_to_cameraFragment"
-            app:destination="@id/cameraFragment" />
-        <argument
-            android:name="uris"
-            app:argType="com.prashant.task.fragments.camera.URI"
-            app:nullable="true"
-            android:defaultValue="@null" />
-    </fragment>
+        tools:layout="@layout/video_fragment" />
     <fragment
         android:id="@+id/userInput"
         android:name="com.prashant.task.fragments.inputs.UserInput"
         android:label="Input"
         tools:layout="@layout/user_input_fragment" />
-    <fragment
-        android:id="@+id/cameraFragment"
-        android:name="com.prashant.task.fragments.camera.CameraFragment"
-        android:label="Preview"
-        tools:layout="@layout/camera_fragment">
-        <argument
-            android:name="comingFor"
-            app:argType="com.prashant.task.singlton.MediaQuery"
-            />
-        <action
-            android:id="@+id/action_cameraFragment_to_image"
-            app:destination="@id/image"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/cameraFragment"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_cameraFragment_to_videoFragment"
-            app:destination="@id/videoFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/cameraFragment"
-            app:popUpToInclusive="true" />
-    </fragment>
+
 </navigation>
