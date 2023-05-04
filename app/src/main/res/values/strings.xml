@@ -11,7 +11,8 @@
         Lorem ipsum dolor sit amet
     </string>
     <string name="fab">Floating Action Button</string>
-    <string name="camera">Images</string>
+    <string name="camera">Camera</string>
+    <string name="images">Images</string>
     <string name="description">Retrieve multiple images from Gallery &amp; Camera and display them in a list.</string>
     <string name="video">Video</string>
     <string name="videoDescription">Retrieve multiple videos from Gallery &amp; Camera and display them in a list.</string>
@@ -21,4 +22,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="gallery">Gallery</string>
     <string name="todo">TODO</string>
+    <string name="no_media_available">No media available!</string>
+    <string name="fileName"><b>File Name:</b></string>
+    <string name="fileSize"><b>File Size:</b></string>
+    <string name="fileDate"><b>File Date:</b></string>
+    <string name="fileType"><b>File Type:</b></string>
 </resources>

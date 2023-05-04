@@ -1,72 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.VideoFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabCamera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:clickable="true"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_photo_camera"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/fabGallery"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:visibility="visible" />
+    <data>
 
-    <TextView
-        android:id="@+id/tvCamera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:text="@string/camera"
-        android:textSize="16sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/fabCamera"
-        app:layout_constraintEnd_toStartOf="@id/fabCamera"
-        app:layout_constraintTop_toTopOf="@id/fabCamera"
-        tools:visibility="visible" />
+        <import type="android.view.View" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabGallery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:clickable="true"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_image"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/fab"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:visibility="visible" />
+        <variable
+            name="viewModel"
+            type="com.prashant.task.fragments.videos.VideoVM" />
+    </data>
 
-    <TextView
-        android:id="@+id/tvGallery"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:text="@string/gallery"
-        android:textSize="16sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/fabGallery"
-        app:layout_constraintEnd_toStartOf="@id/fabGallery"
-        app:layout_constraintTop_toTopOf="@id/fabGallery"
-        tools:visibility="visible" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.videos.VideoFragment">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:clickable="true"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/round_add_24"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvVideos"
+            setRecyclerAdapter="@{viewModel.recycleAdapter}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{!viewModel.isAdapterEmpty?View.VISIBLE:View.GONE}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/media_view" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_media_available"
+            android:textSize="18sp"
+            android:visibility="@{viewModel.isAdapterEmpty?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:clickable="true"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_photo_camera"
+            android:visibility="@{viewModel.showFab?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toTopOf="@id/fabGallery"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvCamera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="@string/camera"
+            android:textSize="16sp"
+            android:visibility="@{viewModel.showFab?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/fabCamera"
+            app:layout_constraintEnd_toStartOf="@id/fabCamera"
+            app:layout_constraintTop_toTopOf="@id/fabCamera"
+            tools:visibility="visible" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:clickable="true"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/ic_image"
+            android:visibility="@{viewModel.showFab?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toTopOf="@id/fab"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:text="@string/gallery"
+            android:textSize="16sp"
+            android:visibility="@{viewModel.showFab?View.VISIBLE:View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/fabGallery"
+            app:layout_constraintEnd_toStartOf="@id/fabGallery"
+            app:layout_constraintTop_toTopOf="@id/fabGallery"
+            tools:visibility="visible" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:clickable="true"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/round_add_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
