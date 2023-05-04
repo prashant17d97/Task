@@ -27,4 +27,13 @@
     <string name="fileSize"><b>File Size:</b></string>
     <string name="fileDate"><b>File Date:</b></string>
     <string name="fileType"><b>File Type:</b></string>
+    <string name="details_of_inspected_items">Details of inspected items:</string>
+    <string name="save">Save</string>
+    <string name="full_name">Full Name</string>
+    <string name="address">Address</string>
+    <string name="date">Date</string>
+    <string name="mobile">Mobile</string>
+    <string name="location">Location</string>
+    <string name="desc">Description</string>
+    <string name="testFiled">Test Filed</string>
 </resources>

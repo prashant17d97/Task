@@ -5,4 +5,6 @@
     <color name="container">@color/md_theme_dark_primaryContainer</color>
     <color name="toolbar">@color/md_theme_dark_primaryContainer</color>
     <color name="text">@color/white</color>
+    <color name="background">@color/md_theme_dark_tertiaryContainer</color>
+
 </resources>
