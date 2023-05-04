@@ -16,13 +16,15 @@
         android:layout_margin="10dp"
         tools:context=".fragments.inputs.UserInput">
 
-        <Button
-            android:id="@+id/btnHead"
+        <TextView
+            android:id="@+id/tvHead"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:padding="15dp"
+            android:gravity="center"
             android:background="@drawable/containerbg"
-            android:clickable="false"
+            android:backgroundTint="@color/primary"
             android:text="@string/details_of_inspected_items"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
@@ -34,7 +36,7 @@
             android:layout_margin="10dp"
             android:background="@color/background"
             app:cardCornerRadius="10dp"
-            app:layout_constraintTop_toBottomOf="@id/btnHead"
+            app:layout_constraintTop_toBottomOf="@id/tvHead"
             tools:layout_editor_absoluteX="10dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,11 +54,12 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etFullName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
                         android:inputType="textPersonName"
-                        android:text="@{viewModel.fullName}" />
+                        android:text="@={viewModel.fullName}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,11 +73,12 @@
                     app:layout_constraintTop_toBottomOf="@id/tlUserName">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etAddress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
                         android:inputType="textCapSentences"
-                        android:text="@{viewModel.address}" />
+                        android:text="@={viewModel.address}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,11 +92,12 @@
                     app:layout_constraintTop_toBottomOf="@id/tlAddress">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
                         android:inputType="date"
-                        android:text="@{viewModel.date}" />
+                        android:text="@={viewModel.date}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -106,11 +111,13 @@
                     app:layout_constraintTop_toBottomOf="@id/tlDate">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etMobile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
                         android:inputType="phone"
-                        android:text="@{viewModel.mobile}" />
+                        android:maxLength="10"
+                        android:text="@={viewModel.mobile}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -124,11 +131,12 @@
                     app:layout_constraintTop_toBottomOf="@id/tlMobile">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etLocation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
                         android:inputType="textPersonName"
-                        android:text="@{viewModel.location}" />
+                        android:text="@={viewModel.location}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -142,11 +150,12 @@
                     app:layout_constraintTop_toBottomOf="@id/tlLocation">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etDescription"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
                         android:inputType="textCapSentences"
-                        android:text="@{viewModel.description}" />
+                        android:text="@={viewModel.description}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -160,11 +169,12 @@
                     app:layout_constraintTop_toBottomOf="@id/tlDescription">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etTestFiled"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionDone"
                         android:inputType="textCapSentences"
-                        android:text="@{viewModel.testFiled}" />
+                        android:text="@={viewModel.testFiled}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 

@@ -36,4 +36,5 @@
     <string name="location">Location</string>
     <string name="desc">Description</string>
     <string name="testFiled">Test Filed</string>
+    <string name="date_hint">DD/MM/YYYY</string>
 </resources>

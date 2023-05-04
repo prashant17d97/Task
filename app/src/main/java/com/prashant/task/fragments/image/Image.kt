@@ -19,16 +19,16 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.prashant.task.R
 import com.prashant.task.databinding.ImageFragmentBinding
-import com.prashant.task.singlton.MediaQuery
 import com.prashant.task.singlton.PermissionUtils
-import com.prashant.task.singlton.details
-import com.prashant.task.singlton.showCustomDialog
+import com.prashant.task.singlton.SingletonObj.MediaQuery
+import com.prashant.task.singlton.SingletonObj.details
+import com.prashant.task.singlton.SingletonObj.showCustomDialog
 import java.io.File
 
 
 const val TAG = "Image"
 
-class Image : Fragment() {
+class Image :Fragment() {
     private var _binding: ImageFragmentBinding? = null
     private val imageVM by viewModels<ImageVM>()
     private val binding get() = _binding!!

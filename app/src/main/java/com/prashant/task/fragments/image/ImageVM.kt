@@ -9,11 +9,10 @@ import com.prashant.task.MainActivity
 import com.prashant.task.R
 import com.prashant.task.adapter.RecyclerAdapter
 import com.prashant.task.fragments.mediamodel.MediaModel
-import com.prashant.task.singlton.details
-import com.prashant.task.singlton.showPreviewDialog
+import com.prashant.task.singlton.SingletonObj.details
+import com.prashant.task.singlton.SingletonObj.showPreviewDialog
 
-class ImageVM : ViewModel() {
-
+class ImageVM :ViewModel() {
 
     var isCaptured: Boolean = false
     val showFab = ObservableField(false)

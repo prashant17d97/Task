@@ -19,7 +19,7 @@ import com.prashant.task.R
 import com.prashant.task.adapter.RecyclerAdapter
 import com.prashant.task.databinding.MediaPreviewBinding
 import com.prashant.task.fragments.mediamodel.MediaModel
-import com.prashant.task.singlton.details
+import com.prashant.task.singlton.SingletonObj.details
 
 class VideoVM : ViewModel() {
 

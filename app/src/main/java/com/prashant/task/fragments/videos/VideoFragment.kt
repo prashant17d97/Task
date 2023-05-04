@@ -19,15 +19,15 @@ import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import com.prashant.task.R
 import com.prashant.task.databinding.VideoFragmentBinding
-import com.prashant.task.singlton.MediaQuery
 import com.prashant.task.singlton.PermissionUtils
-import com.prashant.task.singlton.details
-import com.prashant.task.singlton.showCustomDialog
+import com.prashant.task.singlton.SingletonObj.MediaQuery
+import com.prashant.task.singlton.SingletonObj.details
+import com.prashant.task.singlton.SingletonObj.showCustomDialog
 import java.io.File
 
 const val TAG = "Videos"
 
-class VideoFragment : Fragment() {
+class VideoFragment :Fragment() {
     private var _binding: VideoFragmentBinding? = null
     private val videoVM by viewModels<VideoVM>()
     private var player: ExoPlayer? = null
@@ -93,7 +93,7 @@ class VideoFragment : Fragment() {
                         ivPreview.isVisible = false
                         videoPreview.isVisible = true
                         videoVM.currentVideo.observe(viewLifecycleOwner) {
-                            it?.let {uri->
+                            it?.let { uri ->
                                 if (player == null) {
                                     player = ExoPlayer.Builder(videoPreview.context).build()
                                     videoPreview.player = player

@@ -22,16 +22,6 @@
             app:destination="@id/userInput" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.prashant.task.fragments.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/HomeFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/image"
         android:name="com.prashant.task.fragments.image.Image"
         android:label="Images"
