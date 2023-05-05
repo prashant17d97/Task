@@ -15,11 +15,8 @@ import com.prashant.task.singlton.SingletonObj.showToast
 import kotlinx.parcelize.Parcelize
 import org.json.JSONObject
 
-class UserInputVM :ViewModel() {
+class UserInputVM : ViewModel() {
 
-    val errorFinder = MutableLiveData<FieldTypoError>()
-    private val dateRegex = Regex("^(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/\\d{4}$")
-    private val mobileRegex = Regex("^\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{4}$")
     val fullName = ObservableField("")
     val address = ObservableField("")
     val date = ObservableField("")
@@ -27,6 +24,11 @@ class UserInputVM :ViewModel() {
     val location = ObservableField("")
     val description = ObservableField("")
     val testFiled = ObservableField("")
+
+    val errorFinder = MutableLiveData<FieldTypoError?>(null)
+
+    private val dateRegex = Regex("^(0?[1-9]|[12][0-9]|3[01])/(0?[1-9]|1[012])/\\d{4}$")
+    private val mobileRegex = Regex("^\\d{3}[-\\s]?\\d{3}[-\\s]?\\d{4}$")
     private var inputData: InputData? = null
 
     companion object {
@@ -35,8 +37,11 @@ class UserInputVM :ViewModel() {
 
     fun onClick(view: View) {
         when (view.id) {
-            R.id.btnNext -> view.findNavController()
-                .navigate(UserInputDirections.actionUserInputToTable(inputData))
+            R.id.btnNext -> {
+                view.findNavController()
+                    .navigate(UserInputDirections.actionUserInputToTable(inputData))
+                errorFinder.value = null
+            }
 
             R.id.btnSave -> {
                 if (validateInputs) {
@@ -46,6 +51,7 @@ class UserInputVM :ViewModel() {
         }
     }
 
+    //validating the given inputs by the user. Is it matching require input or not.
     val validateInputs: Boolean
         get() = when {
             fullName.get()?.trim()?.isEmpty() == true -> {
@@ -131,12 +137,17 @@ class UserInputVM :ViewModel() {
         testFiled.set("")
         showToast("Data saved successfully!")
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        inputData = null
+    }
 }
 
 enum class FieldTypoError(val message: String) {
     FullName("Name is not allowed to empty!"),
     Address("Address is not allowed to empty!"),
-    Date("Enter a valid date and must match DD/MM/YYYY!"),
+    Date("Enter a valid date!"),
     Mobile("Enter a valid Mobile number!"),
     Location("Location field is not allowed to empty!"),
     Description("Description field is not allowed to empty!"),
@@ -152,4 +163,4 @@ data class InputData(
     val location: String,
     val description: String,
     val testFile: String,
-) :Parcelable
+) : Parcelable

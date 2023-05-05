@@ -16,19 +16,21 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.bumptech.glide.Glide
 import com.prashant.task.R
 import com.prashant.task.databinding.ImageFragmentBinding
 import com.prashant.task.singlton.PermissionUtils
+import com.prashant.task.singlton.PermissionUtils.hasPermissions
+import com.prashant.task.singlton.PermissionUtils.isPermissionsGranted
 import com.prashant.task.singlton.SingletonObj.MediaQuery
 import com.prashant.task.singlton.SingletonObj.details
+import com.prashant.task.singlton.SingletonObj.loadImageIn
 import com.prashant.task.singlton.SingletonObj.showCustomDialog
 import java.io.File
 
 
 const val TAG = "Image"
 
-class Image :Fragment() {
+class Image : Fragment() {
     private var _binding: ImageFragmentBinding? = null
     private val imageVM by viewModels<ImageVM>()
     private val binding get() = _binding!!
@@ -49,8 +51,8 @@ class Image :Fragment() {
         ActivityResultContracts
             .RequestMultiplePermissions()
     ) {
-        if (PermissionUtils.isPermissionsGranted(requireContext(), it)) {
-            requestPermission()
+        if (isPermissionsGranted(requireContext(), it)) {
+            launchCamera()
         }
     }
     private val takePicture =
@@ -83,6 +85,9 @@ class Image :Fragment() {
                 displayFab(false)
                 pickMultipleImages.launch(MediaQuery.Image.value)
             }
+            /**
+             * Calling [showCustomDialog] to capture the images and preview the before adding into the list
+             * */
             fabCamera.setOnClickListener {
                 displayFab(false)
                 showCustomDialog(requireActivity()) { binding, dialog ->
@@ -90,22 +95,19 @@ class Image :Fragment() {
                     with(binding) {
                         recyclerView.adapter = imageVM.previewAdapter
                         binding.videoPreview.isVisible = false
-                        imageVM.currentImage.observe(viewLifecycleOwner) {
-
-                            Glide.with(ivPreview.context)
-                                .load(it)
-                                .placeholder(R.drawable.ic_image)
-                                .error(R.drawable.ic_image)
-                                .into(ivPreview)
+                        imageVM.currentImage.observe(viewLifecycleOwner) { uri ->
+                            uri loadImageIn ivPreview
                         }
 
                         ivAddMore.setOnClickListener {
                             imageVM.isCaptured = false
-                            requestPermission()
+                            launchCamera()
                         }
+
                         ivDone.setOnClickListener {
+                            //Added the images in main list adapter from preview and clear the preview
                             imageVM.recycleAdapter.addMoreItems(imageVM.previewAdapter.getAllItems())
-                            Log.e(TAG, "onViewCreated: ${imageVM.previewAdapter.getAllItems()}")
+
                             imageVM.isAdapterEmpty.set(
                                 imageVM.recycleAdapter.getAllItem().isEmpty()
                             )
@@ -128,14 +130,18 @@ class Image :Fragment() {
         }
     }
 
-    private fun requestPermission() {
-        if (PermissionUtils.hasPermissions(requireContext(), arrayOf(Manifest.permission.CAMERA))) {
+    private fun launchCamera() {
+        if (hasPermissions(requireContext(), arrayOf(Manifest.permission.CAMERA))) {
             takeImage()
         } else {
             cameraPermission.launch(arrayOf(Manifest.permission.CAMERA))
         }
     }
 
+    /**
+     * Displays or hides the camera and gallery FABs and their associated text views with an animation.
+     * @param boolean True to display the FABs and text views, false to hide them.
+     */
     private fun displayFab(boolean: Boolean) {
         imageVM.showFab.set(boolean)
         val slideUp: Animation = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_up)
@@ -148,6 +154,11 @@ class Image :Fragment() {
         }
     }
 
+    /**
+     * Launches the device camera to capture an image and save it to a temporary file.
+     * Sets the [isCaptured] flag to true.
+     * @throws ActivityNotFoundException if the device doesn't have a camera app to handle the intent
+     */
     private fun takeImage() {
         imageVM.isCaptured = true
         lifecycleScope.launchWhenStarted {
@@ -159,6 +170,10 @@ class Image :Fragment() {
     }
 
 
+    /**
+     * [getTmpFileUri] create the temporary uri file location in the cache and it add the image at
+     * temporary location from camera.
+     * */
     private fun getTmpFileUri(): Uri {
         val tmpFile = File.createTempFile("Image", ".png", requireContext().cacheDir)
             .apply {
@@ -173,4 +188,3 @@ class Image :Fragment() {
         )
     }
 }
-

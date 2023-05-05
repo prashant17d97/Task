@@ -21,10 +21,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:padding="15dp"
-            android:gravity="center"
             android:background="@drawable/containerbg"
             android:backgroundTint="@color/primary"
+            android:gravity="center"
+            android:padding="15dp"
             android:text="@string/details_of_inspected_items"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
@@ -94,8 +94,9 @@
                         android:id="@+id/etDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="false"
                         android:imeOptions="actionNext"
-                        android:inputType="date"
+                        android:inputType="none"
                         android:text="@={viewModel.date}" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -122,19 +123,24 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tlLocation"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/location"
+                    android:popupBackground="@color/primary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tlMobile">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/etLocation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:ellipsize="end"
                         android:imeOptions="actionNext"
-                        android:inputType="textPersonName"
+                        android:inputType="none"
+                        android:maxLines="1"
+                        android:singleLine="true"
                         android:text="@={viewModel.location}" />
 
                 </com.google.android.material.textfield.TextInputLayout>

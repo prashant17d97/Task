@@ -12,19 +12,22 @@ import com.prashant.task.fragments.mediamodel.MediaModel
 import com.prashant.task.singlton.SingletonObj.details
 import com.prashant.task.singlton.SingletonObj.showPreviewDialog
 
-class ImageVM :ViewModel() {
+class ImageVM : ViewModel() {
 
     var isCaptured: Boolean = false
     val showFab = ObservableField(false)
     val isAdapterEmpty = ObservableField(false)
     val recycleAdapter = RecyclerAdapter<MediaModel>(R.layout.media_view)
-    val currentImage = MutableLiveData<Uri>(null)
+    val currentImage = MutableLiveData<Uri?>(null)
 
     val previewAdapter = RecyclerAdapter<MediaModel>(R.layout.preview_view)
 
 
     init {
         isAdapterEmpty.set(recycleAdapter.getAllItem().isEmpty())
+        /**
+         * Recyclers item click handling
+         * */
         previewAdapter.setOnItemClick { view, _, position ->
             showFab.set(false)
             when (view.id) {
@@ -34,6 +37,8 @@ class ImageVM :ViewModel() {
                 }
             }
         }
+
+
         recycleAdapter.setOnItemClick { view, _, position ->
             when (view.id) {
                 R.id.clMediaCard -> {
@@ -68,6 +73,6 @@ class ImageVM :ViewModel() {
         super.onCleared()
         recycleAdapter.getAllItem().clear()
         previewAdapter.getAllItems().clear()
+        currentImage.value = null
     }
-
 }

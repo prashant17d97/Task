@@ -37,4 +37,14 @@
     <string name="desc">Description</string>
     <string name="testFiled">Test Filed</string>
     <string name="date_hint">DD/MM/YYYY</string>
+
+
+    <string-array name="locations">
+        <item>Jaipur</item>
+        <item>Delhi</item>
+        <item>Bangalore</item>
+        <item>Pune</item>
+        <item>Gurgaon</item>
+        <item>Noida</item>
+    </string-array>
 </resources>
